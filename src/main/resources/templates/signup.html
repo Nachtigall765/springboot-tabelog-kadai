@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+    <div th:replace="~{fragment :: styles}"></div>
+    <title>会員登録</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragment :: header}"></div>
+
+<main>
+<div class="site-container">
+
+    <div class="auth-container">
+        <div class="auth-card">
+
+            <h1>会員登録</h1>
+
+            <p class="auth-description">
+                必要事項を入力して会員登録してください。
+            </p>
+
+            <form action="/signup" method="post">
+
+                <div class="form-group">
+                    <label>名前</label>
+
+                    <input type="text"
+                           name="name"
+                           placeholder="山田 太郎"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>メールアドレス</label>
+
+                    <input type="email"
+                           name="email"
+                           placeholder="example@example.com"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>パスワード</label>
+
+                    <input type="password"
+                           name="password"
+                           required>
+                </div>
+
+                <button type="submit">
+                    登録する
+                </button>
+
+            </form>
+
+            <div class="auth-links">
+                <p>
+                    すでにアカウントをお持ちの方
+                    <a th:href="@{/login}">
+                        ログイン
+                    </a>
+                </p>
+
+                <a th:href="@{/}">
+                    トップページへ戻る
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</main>
+
+<div th:replace="~{fragment :: footer}"></div>
+<div th:replace="~{fragment :: scripts}"></div>
+
+</body>
+</html>
+

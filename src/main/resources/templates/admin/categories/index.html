@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>カテゴリ管理</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>カテゴリ管理</h1>
+
+<form th:action="@{/admin/categories}" method="post">
+    <input type="text" name="name" required>
+    <button type="submit">カテゴリを登録</button>
+</form>
+<form th:action="@{/admin/categories}" method="get">
+    <input type="text"
+           name="keyword"
+           th:value="${keyword}"
+           placeholder="カテゴリ名">
+    <button type="submit">検索</button>
+</form>
+
+<hr>
+
+<div class="category-list-admin">
+    <div class="category-row" th:each="category : ${categories}">
+
+        <span class="category-name"
+              th:text="${category.name}">
+            カテゴリ名
+        </span>
+
+        <div class="category-actions">
+            <a class="category-edit"
+               th:href="@{/admin/categories/{id}/edit(id=${category.id})}">
+                編集
+            </a>
+
+            <form th:action="@{/admin/categories/{id}/delete(id=${category.id})}"
+                  method="post">
+                <button type="submit" class="category-delete">
+                    削除
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<p>
+    <a th:href="@{/admin}">管理者ページへ戻る</a>
+</p>
+
+</body>
+</html>

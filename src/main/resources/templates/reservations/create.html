@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+    <div th:replace="~{fragment :: styles}"></div>
+    <title>予約</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragment :: header}"></div>
+
+<main>
+<div class="site-container">
+    <div class="form-page-card">
+
+        <h1>店舗予約</h1>
+
+        <div class="reservation-shop">
+            <span>予約する店舗</span>
+            <strong th:text="${shop.name}">店舗名</strong>
+        </div>
+
+        <form th:action="@{/reservations/confirm}" method="post">
+
+            <input type="hidden"
+                   name="shopId"
+                   th:value="${shop.id}">
+
+            <div class="form-group">
+                <label>予約日時</label>
+                <input type="datetime-local"
+                       name="reservationAt"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>人数</label>
+                <input type="number"
+                       name="numberOfPeople"
+                       min="1"
+                       required>
+            </div>
+
+            <button type="submit">予約内容を確認する</button>
+
+        </form>
+
+        <div class="back-link">
+            <a th:href="@{/shops/{id}(id=${shop.id})}">
+                ← 店舗詳細へ戻る
+            </a>
+        </div>
+
+    </div>
+</div>
+</main>
+
+<div th:replace="~{fragment :: footer}"></div>
+<div th:replace="~{fragment :: scripts}"></div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>レビュー編集</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>レビュー編集</h1>
+
+<form th:action="@{/reviews/{id}/edit(id=${review.id})}"
+      method="post">
+
+    <div>
+        <label>評価</label>
+        <select name="rating" required>
+            <option value="1" th:selected="${review.rating == 1}">1</option>
+            <option value="2" th:selected="${review.rating == 2}">2</option>
+            <option value="3" th:selected="${review.rating == 3}">3</option>
+            <option value="4" th:selected="${review.rating == 4}">4</option>
+            <option value="5" th:selected="${review.rating == 5}">5</option>
+        </select>
+    </div>
+
+    <div>
+        <label>レビュー内容</label>
+        <textarea name="body"
+                  required
+                  th:text="${review.body}"></textarea>
+    </div>
+
+    <button type="submit">更新する</button>
+</form>
+
+<a th:href="@{/shops/{id}(id=${review.shop.id})}">
+    店舗詳細へ戻る
+</a>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>カード情報編集</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<h1>カード情報編集</h1>
+
+<form th:action="@{/payment-method}" method="post">
+
+    <div>
+        <label>カード情報</label>
+
+        <input type="text"
+               name="cardToken"
+               th:value="${paymentMethod != null ? paymentMethod.cardToken : ''}"
+               required>
+    </div>
+
+    <button type="submit">保存する</button>
+
+</form>
+
+<p>
+    <a th:href="@{/mypage}">マイページへ戻る</a>
+</p>
+
+</body>
+</html>

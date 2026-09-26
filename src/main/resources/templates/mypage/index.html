@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+    <div th:replace="~{fragment :: styles}"></div>
+    <title>マイページ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div th:replace="~{fragment :: header}"></div>
+
+<main>
+<div class="site-container page-container">
+
+    <h1 class="page-title">マイページ</h1>
+
+    <p class="mypage-description">
+        会員情報や予約、お気に入りなどを確認できます。
+    </p>
+
+    <div class="mypage-menu">
+
+        <a th:href="@{/mypage/profile}"
+           class="mypage-item">
+            <h2>会員情報</h2>
+            <p>登録情報の確認・編集</p>
+        </a>
+
+        <a th:href="@{/reservations}"
+           class="mypage-item">
+            <h2>予約一覧</h2>
+            <p>予約内容の確認・キャンセル</p>
+        </a>
+
+        <a th:href="@{/favorites}"
+           class="mypage-item">
+            <h2>お気に入り</h2>
+            <p>お気に入り店舗を確認</p>
+        </a>
+
+        <a th:href="@{/payment-method}"
+           class="mypage-item">
+            <h2>カード情報</h2>
+            <p>カード情報の確認・編集</p>
+        </a>
+
+        <a th:href="@{/subscription}"
+           class="mypage-item">
+            <h2>有料会員</h2>
+            <p>有料会員登録・解約</p>
+        </a>
+
+        <a th:href="@{/shops}"
+           class="mypage-item">
+            <h2>店舗を探す</h2>
+            <p>店舗一覧へ移動</p>
+        </a>
+
+    </div>
+
+    <div class="logout-area">
+
+        <form action="/logout" method="post">
+            <button type="submit"
+                    class="logout-button">
+                ログアウト
+            </button>
+        </form>
+
+    </div>
+
+</div>
+</main>
+
+<div th:replace="~{fragment :: footer}"></div>
+<div th:replace="~{fragment :: scripts}"></div>
+
+</body>
+</html>

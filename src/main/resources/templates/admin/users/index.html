@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>会員管理</title>
+     <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>会員管理</h1>
+
+<form th:action="@{/admin/users}" method="get">
+    <input type="text"
+           name="keyword"
+           th:value="${keyword}"
+           placeholder="名前・メールアドレス">
+    <button type="submit">検索</button>
+</form>
+
+<hr>
+
+<p th:if="${#lists.isEmpty(users)}">
+    会員が見つかりません。
+</p>
+
+<table th:unless="${#lists.isEmpty(users)}" border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th>メールアドレス</th>
+            <th>メール認証</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}">1</td>
+            <td th:text="${user.name}">名前</td>
+            <td th:text="${user.email}">mail@example.com</td>
+            <td th:text="${user.emailVerifiedAt != null ? '認証済み' : '未認証'}">
+                未認証
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+
+<a th:href="@{/admin}">管理者トップへ戻る</a>
+
+</body>
+</html>

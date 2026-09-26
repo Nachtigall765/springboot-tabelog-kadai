@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>レビュー管理</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>レビュー管理</h1>
+
+<p th:if="${#lists.isEmpty(reviews)}">レビューはありません。</p>
+
+<div th:each="review : ${reviews}">
+    <p>
+        店舗：
+        <span th:text="${review.shop.name}"></span>
+    </p>
+
+    <p>
+        投稿者：
+        <span th:text="${review.user.name}"></span>
+    </p>
+
+    <p>
+        評価：
+        <span th:text="${review.rating}"></span>/5
+    </p>
+
+    <p th:text="${review.body}"></p>
+
+    <p>
+        状態：
+        <span th:if="${review.visible}">公開中</span>
+        <span th:unless="${review.visible}">非公開</span>
+    </p>
+
+    <form th:if="${review.visible}"
+          th:action="@{/admin/reviews/{id}/hide(id=${review.id})}"
+          method="post">
+        <button type="submit">非公開にする</button>
+    </form>
+
+    <hr>
+</div>
+
+<a th:href="@{/admin}">管理者ページへ戻る</a>
+
+</body>
+</html>

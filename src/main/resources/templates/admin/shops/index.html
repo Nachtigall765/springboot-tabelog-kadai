@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>店舗管理</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>店舗管理</h1>
+
+<form th:action="@{/admin/shops}" method="get">
+    <input type="text" name="keyword"
+           th:value="${keyword}" placeholder="店舗名">
+    <button type="submit">検索</button>
+</form>
+
+<p>
+    <a th:href="@{/admin/shops/create}">店舗を登録する</a>
+</p>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>店舗名</th>
+        <th>カテゴリ</th>
+        <th>住所</th>
+        <th>操作</th>
+    </tr>
+
+    <tr th:each="shop : ${shops}">
+        <td th:text="${shop.id}"></td>
+        <td th:text="${shop.name}"></td>
+        <td th:text="${shop.category.name}"></td>
+        <td th:text="${shop.address}"></td>
+        <td>
+            <a th:href="@{/admin/shops/{id}/edit(id=${shop.id})}">
+                編集
+            </a>
+
+            <form th:action="@{/admin/shops/{id}/delete(id=${shop.id})}"
+                  method="post"
+                  style="display:inline">
+                <button type="submit">削除</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<p><a th:href="@{/admin}">管理画面へ戻る</a></p>
+
+</body>
+</html>

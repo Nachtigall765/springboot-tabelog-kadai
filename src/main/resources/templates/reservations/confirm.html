@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+    <div th:replace="~{fragment :: styles}"></div>
+    <title>予約確認</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragment :: header}"></div>
+
+<main>
+<div class="site-container">
+    <div class="form-page-card">
+
+        <h1>予約内容の確認</h1>
+        <p class="page-description">
+            以下の内容で予約します。
+        </p>
+
+        <div class="confirmation-list">
+
+            <div class="confirmation-row">
+                <span>店舗ID</span>
+                <strong th:text="${shopId}">1</strong>
+            </div>
+
+            <div class="confirmation-row">
+                <span>予約日時</span>
+                <strong th:text="${reservationAt}">日時</strong>
+            </div>
+
+            <div class="confirmation-row">
+                <span>人数</span>
+                <strong>
+                    <span th:text="${numberOfPeople}">1</span> 人
+                </strong>
+            </div>
+
+        </div>
+
+        <form th:action="@{/reservations}" method="post">
+
+            <input type="hidden"
+                   name="shopId"
+                   th:value="${shopId}">
+
+            <input type="hidden"
+                   name="reservationAt"
+                   th:value="${reservationAt}">
+
+            <input type="hidden"
+                   name="numberOfPeople"
+                   th:value="${numberOfPeople}">
+
+            <button type="submit">予約する</button>
+
+        </form>
+
+        <div class="back-link">
+            <a th:href="@{/reservations/create(shopId=${shopId})}">
+                ← 入力画面へ戻る
+            </a>
+        </div>
+
+    </div>
+</div>
+</main>
+
+<div th:replace="~{fragment :: footer}"></div>
+<div th:replace="~{fragment :: scripts}"></div>
+
+</body>
+</html>

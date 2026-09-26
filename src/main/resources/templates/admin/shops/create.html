@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>店舗登録</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>店舗登録</h1>
+
+<form th:action="@{/admin/shops}" method="post">
+
+    <p>
+        店舗名：
+        <input type="text" name="name" required>
+    </p>
+
+    <p>
+        カテゴリ：
+        <select name="categoryId" required>
+            <option th:each="category : ${categories}"
+                    th:value="${category.id}"
+                    th:text="${category.name}">
+            </option>
+        </select>
+    </p>
+
+    <p>
+        住所：
+        <input type="text" name="address" required>
+    </p>
+
+    <p>
+        店舗説明：<br>
+        <textarea name="description"></textarea>
+    </p>
+
+    <button type="submit">登録する</button>
+
+</form>
+
+<a th:href="@{/admin/shops}">店舗管理へ戻る</a>
+
+</body>
+</html>

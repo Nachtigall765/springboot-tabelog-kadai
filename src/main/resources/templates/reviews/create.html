@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>レビュー投稿</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>レビュー投稿</h1>
+
+<h2 th:text="${shop.name}">店舗名</h2>
+
+<form action="/reviews" method="post">
+<input type="hidden" name="shopId" th:value="${shopId}">
+
+    <div>
+        <label>評価</label>
+        <select name="rating">
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+        </select>
+    </div>
+
+    <div>
+        <label>レビュー内容</label>
+        <textarea name="body"></textarea>
+    </div>
+
+    <button type="submit">投稿する</button>
+
+</form>
+
+<a href="/shops">店舗一覧へ戻る</a>
+
+</body>
+</html>

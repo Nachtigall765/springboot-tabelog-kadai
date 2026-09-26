@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理者ページ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>管理者ページ</h1>
+
+<ul>
+    <li><a th:href="@{/admin/shops}">店舗管理</a></li>
+    <li><a th:href="@{/admin/users}">会員管理</a></li>
+    <li><a th:href="@{/admin/categories}">カテゴリ管理</a></li>
+    <li><a th:href="@{/admin/reviews}">レビュー管理</a></li>
+</ul>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">ログアウト</button>
+</form>
+
+</body>
+</html>

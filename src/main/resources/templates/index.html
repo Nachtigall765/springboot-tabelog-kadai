@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+    <div th:replace="~{fragment :: styles}"></div>
+    <title>店舗検索サイト</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragment :: header}"></div>
+
+<main class="home-main">
+
+    <!-- ログイン成功 -->
+    <div class="site-container">
+        <div th:if="${param.loggedIn}" class="alert alert-info">
+            ログインしました。
+        </div>
+
+        <div th:if="${param.loggedOut}" class="alert alert-info">
+            ログアウトしました。
+        </div>
+    </div>
+
+    <!-- メインビジュアル -->
+    <section class="hero">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>お気に入りのお店を<br>見つけよう</h1>
+                <p>
+                    レストランやカフェなど、<br>
+                    気になるお店を探せるレビューサイトです。
+                </p>
+
+                <a th:href="@{/shops}" class="hero-button">
+                    お店を探す
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 検索への導線 -->
+    <section class="home-section site-container">
+        <h2>お店を探す</h2>
+
+        <div class="search-panel">
+            <p>店舗名やカテゴリから、お気に入りのお店を探してみましょう。</p>
+
+            <a th:href="@{/shops}" class="main-button">
+                店舗一覧を見る
+            </a>
+        </div>
+    </section>
+
+    <!-- サービス紹介 -->
+    <section class="home-section site-container">
+        <h2>このサイトでできること</h2>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <h3>店舗を探す</h3>
+                <p>店舗名やカテゴリから気になるお店を検索できます。</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>レビューを見る</h3>
+                <p>お店の評価や利用者のレビューを確認できます。</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>予約する</h3>
+                <p>ログインすると気になる店舗を予約できます。</p>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<div th:replace="~{fragment :: footer}"></div>
+<div th:replace="~{fragment :: scripts}"></div>
+
+</body>
+</html>

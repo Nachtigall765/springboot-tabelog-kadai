@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+    <div th:replace="~{fragment :: styles}"></div>
+    <title>予約一覧</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragment :: header}"></div>
+
+<main>
+<div class="site-container page-container">
+
+    <h1 class="page-title">予約一覧</h1>
+
+    <p th:if="${#lists.isEmpty(reservations)}"
+       class="empty-message">
+        現在予約はありません。
+    </p>
+
+    <div class="table-wrapper"
+         th:unless="${#lists.isEmpty(reservations)}">
+
+        <table class="site-table">
+            <thead>
+                <tr>
+                    <th>店舗</th>
+                    <th>予約日時</th>
+                    <th>人数</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="reservation : ${reservations}">
+
+                    <td th:text="${reservation.shop.name}">
+                        店舗名
+                    </td>
+
+                    <td th:text="${reservation.reservationAt}">
+                        予約日時
+                    </td>
+
+                    <td>
+                        <span th:text="${reservation.numberOfPeople}">1</span>
+                        人
+                    </td>
+
+                    <td>
+                        <form th:action="@{/reservations/{id}/delete(id=${reservation.id})}"
+                              method="post"
+                              class="inline-form">
+
+                            <button type="submit"
+                                    class="cancel-button">
+                                予約をキャンセルする
+                            </button>
+
+                        </form>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="page-actions">
+        <a th:href="@{/shops}" class="main-button">
+            店舗を探す
+        </a>
+
+        <a th:href="@{/mypage}" class="sub-button">
+            マイページへ戻る
+        </a>
+    </div>
+
+</div>
+</main>
+
+<div th:replace="~{fragment :: footer}"></div>
+<div th:replace="~{fragment :: scripts}"></div>
+
+</body>
+</html>

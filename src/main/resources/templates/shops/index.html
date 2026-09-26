@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+    <div th:replace="~{fragment :: styles}"></div>
+    <title>店舗一覧</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragment :: header}"></div>
+
+<main>
+    <div class="site-container page-container">
+
+        <h1 class="page-title">店舗を探す</h1>
+
+        <!-- 店舗名検索 -->
+        <div class="search-box">
+
+            <h2>キーワードから探す</h2>
+
+            <form th:action="@{/shops}" method="get"
+                  class="search-form">
+
+                <input type="text"
+                       name="keyword"
+                       th:value="${keyword}"
+                       placeholder="店舗名を入力">
+
+                <button type="submit">
+                    検索
+                </button>
+
+            </form>
+        </div>
+
+        <!-- カテゴリ -->
+        <div class="category-section">
+
+            <h2>カテゴリから探す</h2>
+
+            <div class="category-list">
+
+                <a th:href="@{/shops}"
+                   class="category-button">
+                    すべて
+                </a>
+
+                <a th:each="category : ${categories}"
+                   th:href="@{/shops(categoryId=${category.id})}"
+                   th:text="${category.name}"
+                   class="category-button">
+                    カテゴリ
+                </a>
+
+            </div>
+        </div>
+
+        <!-- 店舗一覧 -->
+        <h2 class="section-title">店舗一覧</h2>
+
+        <div class="shop-grid">
+			
+
+            <article th:each="shop : ${shops}"
+                     class="shop-card">
+                     
+                     <img th:if="${shop.imageName != null}"
+     th:src="@{/images/{file}(file=${shop.imageName})}"
+     th:alt="${shop.name}"
+     class="shop-image">
+
+
+                <div class="shop-card-body">
+
+                    <span class="shop-category"
+                          th:text="${shop.category.name}">
+                        カテゴリ
+                    </span>
+
+                    <h2 th:text="${shop.name}">
+                        店舗名
+                    </h2>
+
+                    <p class="shop-address">
+                        <span th:text="${shop.address}">
+                            住所
+                        </span>
+                    </p>
+
+                    <p class="shop-description"
+                       th:text="${shop.description}">
+                        店舗説明
+                    </p>
+
+                    <a th:href="@{/shops/{id}(id=${shop.id})}"
+                       class="detail-button">
+                        詳細を見る
+                    </a>
+
+                </div>
+
+            </article>
+
+        </div>
+
+        <div class="back-link">
+            <a th:href="@{/}">トップへ戻る</a>
+        </div>
+
+    </div>
+</main>
+
+<div th:replace="~{fragment :: footer}"></div>
+<div th:replace="~{fragment :: scripts}"></div>
+
+</body>
+</html>

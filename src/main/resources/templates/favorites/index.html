@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+    <div th:replace="~{fragment :: styles}"></div>
+    <title>お気に入り一覧</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragment :: header}"></div>
+
+<main>
+<div class="site-container page-container">
+
+    <h1 class="page-title">お気に入り一覧</h1>
+
+    <p th:if="${#lists.isEmpty(favorites)}"
+       class="empty-message">
+        お気に入りはありません。
+    </p>
+
+    <div class="favorite-grid">
+
+        <article th:each="favorite : ${favorites}"
+                 class="favorite-card">
+
+            <span class="shop-category"
+                  th:text="${favorite.shop.category.name}">
+                カテゴリ
+            </span>
+
+            <h2>
+                <a th:href="@{/shops/{id}(id=${favorite.shop.id})}"
+                   th:text="${favorite.shop.name}">
+                    店舗名
+                </a>
+            </h2>
+
+            <p class="shop-address">
+                <strong>住所</strong><br>
+                <span th:text="${favorite.shop.address}">
+                    住所
+                </span>
+            </p>
+
+            <form th:action="@{/favorites/{shopId}/delete(shopId=${favorite.shop.id})}"
+                  method="post">
+
+                <button type="submit"
+                        class="cancel-button">
+                    お気に入りから削除
+                </button>
+
+            </form>
+
+        </article>
+
+    </div>
+
+    <div class="page-actions">
+        <a th:href="@{/shops}" class="main-button">
+            店舗一覧へ
+        </a>
+
+        <a th:href="@{/mypage}" class="sub-button">
+            マイページへ戻る
+        </a>
+    </div>
+
+</div>
+</main>
+
+<div th:replace="~{fragment :: footer}"></div>
+<div th:replace="~{fragment :: scripts}"></div>
+
+</body>
+</html>

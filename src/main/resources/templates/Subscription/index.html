@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+ <html xmlns:th="https://www.thymeleaf.org">
+ <head>
+   <meta charset="UTF-8">
+    <title>有料会員登録</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+ <body>
+
+ <h1>有料会員登録</h1>
+
+ <p>有料会員に登録すると、有料会員向けサービスを利用できます。</p>
+
+<!-- 未登録、または解約済みの場合 -->
+<form th:if="${subscription == null or subscription.status != 'ACTIVE'}"
+      th:action="@{/subscription}"
+      method="post">
+    <button type="submit">有料会員に登録する</button>
+</form>
+
+<!-- 有料会員の場合 -->
+<div th:if="${subscription != null and subscription.status == 'ACTIVE'}">
+    <p>現在、有料会員です。</p>
+
+    <form th:action="@{/subscription/cancel}" method="post">
+        <button type="submit">有料会員を解約する</button>
+    </form>
+</div>
+
+ <p>
+    <a th:href="@{/mypage}">マイページへ戻る</a>
+ </p>
+
+ </body>
+ </html>

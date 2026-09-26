@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+    <div th:replace="~{fragment :: styles}"></div>
+    <title>予約完了</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragment :: header}"></div>
+
+<main>
+<div class="site-container">
+
+    <div class="complete-card">
+
+        <div class="complete-mark">✓</div>
+
+        <h1>予約が完了しました</h1>
+
+        <p>
+            ご予約ありがとうございます。<br>
+            予約内容は予約一覧から確認できます。
+        </p>
+
+        <div class="complete-actions">
+            <a th:href="@{/reservations}"
+               class="main-button">
+                予約一覧を見る
+            </a>
+
+            <a th:href="@{/mypage}"
+               class="sub-button">
+                マイページへ戻る
+            </a>
+        </div>
+
+    </div>
+
+</div>
+</main>
+
+<div th:replace="~{fragment :: footer}"></div>
+<div th:replace="~{fragment :: scripts}"></div>
+
+</body>
+</html>
