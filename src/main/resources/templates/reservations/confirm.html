@@ -9,68 +9,115 @@
 
 <body>
 
-<div th:replace="~{fragment :: header}"></div>
+    <div th:replace="~{fragment :: header}"></div>
 
-<main>
-<div class="site-container">
-    <div class="form-page-card">
+    <main>
+        <div class="site-container">
 
-        <h1>予約内容の確認</h1>
-        <p class="page-description">
-            以下の内容で予約します。
-        </p>
+            <div class="form-page-card">
 
-        <div class="confirmation-list">
+                <h1>予約内容の確認</h1>
 
-            <div class="confirmation-row">
-                <span>店舗ID</span>
-                <strong th:text="${shopId}">1</strong>
-            </div>
+                <p class="page-description">
+                    以下の内容で予約します。
+                </p>
 
-            <div class="confirmation-row">
-                <span>予約日時</span>
-                <strong th:text="${reservationAt}">日時</strong>
-            </div>
+                <div class="confirmation-list">
 
-            <div class="confirmation-row">
-                <span>人数</span>
-                <strong>
-                    <span th:text="${numberOfPeople}">1</span> 人
-                </strong>
+                    <div class="confirmation-row">
+                        <span>店舗</span>
+                        <strong th:text="${shop.name}">
+                            店舗名
+                        </strong>
+                    </div>
+
+                    <div class="confirmation-row">
+                        <span>予約日時</span>
+                        <strong th:text="${reservationAt}">
+                            日時
+                        </strong>
+                    </div>
+
+                    <div class="confirmation-row">
+                        <span>人数</span>
+                        <strong>
+                            <span th:text="${numberOfPeople}">1</span>
+                            人
+                        </strong>
+                    </div>
+
+                </div>
+
+                <!-- Stripe決済へ進む -->
+                <div class="page-actions">
+
+                    <a th:href="${sessionUrl}" class="main-button">
+                        決済へ進む
+                    </a>
+
+                    <a
+                        class="sub-button"
+                        th:href="@{/reservations/create(shopId=${shopId})}">
+                        入力画面へ戻る
+                    </a>
+
+                </div>
+
+                <!-- Stripe Session ID -->
+                <input
+                    type="hidden"
+                    id="stripe-session-id"
+                    th:value="${sessionId}">
+
             </div>
 
         </div>
+    </main>
 
-        <form th:action="@{/reservations}" method="post">
+    <div th:replace="~{fragment :: footer}"></div>
+    <div th:replace="~{fragment :: scripts}"></div>
 
-            <input type="hidden"
-                   name="shopId"
-                   th:value="${shopId}">
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
 
-            <input type="hidden"
-                   name="reservationAt"
-                   th:value="${reservationAt}">
+    <script th:inline="javascript">
 
-            <input type="hidden"
-                   name="numberOfPeople"
-                   th:value="${numberOfPeople}">
+        const stripePublicKey =
+            /*[[${@environment.getProperty('stripe.public-key')}]]*/ '';
 
-            <button type="submit">予約する</button>
+        const sessionId =
+            document.getElementById("stripe-session-id").value;
 
-        </form>
+        const checkoutButton =
+            document.getElementById("checkout-button");
 
-        <div class="back-link">
-            <a th:href="@{/reservations/create(shopId=${shopId})}">
-                ← 入力画面へ戻る
-            </a>
-        </div>
+        checkoutButton.addEventListener("click", function () {
 
-    </div>
-</div>
-</main>
+            if (!stripePublicKey) {
+                alert("Stripe公開キーが設定されていません。");
+                return;
+            }
 
-<div th:replace="~{fragment :: footer}"></div>
-<div th:replace="~{fragment :: scripts}"></div>
+            if (!sessionId) {
+                alert("決済セッションを作成できませんでした。");
+                return;
+            }
+
+            const stripe = Stripe(stripePublicKey);
+
+            stripe.redirectToCheckout({
+                sessionId: sessionId
+            }).then(function (result) {
+
+                if (result.error) {
+                    alert(result.error.message);
+                }
+
+            });
+
+        });
+
+    </script>
 
 </body>
 </html>

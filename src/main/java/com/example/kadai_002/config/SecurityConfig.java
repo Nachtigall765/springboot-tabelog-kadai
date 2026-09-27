@@ -26,7 +26,8 @@ public class SecurityConfig {
         			    "/verify",
         			    "/password-reset",
         			    "/css/**",
-        			    "/images/**"
+        			    "/images/**",
+        			    "/stripe/webhook"
         			).permitAll()
                 .anyRequest().authenticated()
             )
